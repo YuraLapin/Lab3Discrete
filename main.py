@@ -1,27 +1,27 @@
-def CheckMatrix(matrix):
+def check_matrix(matrix):
 	outerLength = len(matrix)
 	for arr in matrix:
 		if outerLength != len(arr):
 			return False
 	return True
 
-def PrintMatrixPosition(num, matrixSize):
-	spaces = len(str(matrixSize)) - len(str(num)) + 1
+def print_matrix_element(num, matrix_size):
+	spaces = len(str(matrix_size)) - len(str(num)) + 1
 	print(num, end = spaces * " ")
 
-def PrintMatrix(matrix):
-	if CheckMatrix(matrix):
+def print_matrix(matrix):
+	if check_matrix(matrix):
 		size = len(matrix)
 		for i in range(size + 1):
-			PrintMatrixPosition(i, size)
+			print_matrix_element(i, size)
 		print()
 		for i in range(size):
-			PrintMatrixPosition(i + 1, size)
+			print_matrix_element(i + 1, size)
 			for j in range(size):
-				PrintMatrixPosition(matrix[i][j], size)
+				print_matrix_element(matrix[i][j], size)
 			print()
 
-def CheckInt(str):
+def check_int(str):
 	if str == None or str == "":
 		return False
 	for char in str:
@@ -29,49 +29,49 @@ def CheckInt(str):
 			return False
 	return True
 
-def GetInt(message):
+def get_int(message):
 	print(message)
 	ans = input()
-	while not CheckInt(ans):
+	while not check_int(ans):
 		print("Число должно состоять только из цифр и быть целым")
 		print(message)
 		ans = input()
 	return int(ans)
 
-def GetIntPositive(message):
-	ans = GetInt(message)
+def get_positive_int(message):
+	ans = get_int(message)
 	while ans <= 0:		
 		print("Число должно быть положительным ")
-		ans = GetInt(message)		
+		ans = get_int(message)		
 	return ans	
 
-def GetIntLowerThan(message, max):
-	ans = GetIntPositive(message)
+def get_positive_int_lower_than(message, max):
+	ans = get_positive_int(message)
 	while ans > max:		
 		print("Число не может быть больше ", max)
-		ans = GetIntPositive(message)		
+		ans = get_positive_int(message)		
 	return ans	
 
-def ZeroMatrix(size):
+def fill_matrix_with_zero(size):
 	ans = [[0 for i in range(size)] for j in range(size)]
 	return ans
 
-def MultiplyMatrix(matrix1, matrix2):
-	size = len(matrix1)
-	ans = ZeroMatrix(size)
-	if CheckMatrix(matrix1) and CheckMatrix(matrix2) and len(matrix1) == len(matrix2):
-			size = len(matrix1)
+def multiply_matrix(matrix_1, matrix_2):
+	size = len(matrix_1)
+	ans = fill_matrix_with_zero(size)
+	if check_matrix(matrix_1) and check_matrix(matrix_2) and len(matrix_1) == len(matrix_2):
+			size = len(matrix_1)
 			for i in range(size):
 				for j in range(size):
 					for k in range(size):
-						ans[i][j] += matrix1[k][j] * matrix2[i][k]
+						ans[i][j] += matrix_1[k][j] * matrix_2[i][k]
 					ans[i][j] = min(1, ans[i][j])
 	return ans
 
-def PowerMatrix(matrix, power):
+def rise_matrix_to_power(matrix, power):
 	size = len(matrix)
-	ans = ZeroMatrix(size)
-	if CheckMatrix(matrix):
+	ans = fill_matrix_with_zero(size)
+	if check_matrix(matrix):
 		if power == 0:
 			for i in range(size):
 				ans[i][i] = 1
@@ -80,115 +80,115 @@ def PowerMatrix(matrix, power):
 		elif power > 1:
 			ans = matrix
 			for i in range(power - 1):
-				ans = MultiplyMatrix(ans, matrix)
+				ans = multiply_matrix(ans, matrix)
 	return ans
 
-def SumMatrix(matrix1, matrix2):
-	size = len(matrix1)
-	ans = ZeroMatrix(size)
-	if CheckMatrix(matrix1) and CheckMatrix(matrix2) and len(matrix1) == len(matrix2):
+def sum_matrix(matrix_1, matrix_2):
+	size = len(matrix_1)
+	ans = fill_matrix_with_zero(size)
+	if check_matrix(matrix_1) and check_matrix(matrix_2) and len(matrix_1) == len(matrix_2):
 		for i in range(size):
 			for j in range(size):
-				ans[i][j] = matrix1[i][j] + matrix2[i][j]
+				ans[i][j] = matrix_1[i][j] + matrix_2[i][j]
 				ans[i][j] = min(1, ans[i][j])
 	return ans
 
-def LineSumMatrix(matrix, count):
+def sum_of_line_of_matrix(matrix, count):
 	size = len(matrix)
-	ans = ZeroMatrix(size)
+	ans = fill_matrix_with_zero(size)
 	for i in range(count + 1):
-		ans = SumMatrix(ans, PowerMatrix(matrix, i))
+		ans = sum_matrix(ans, rise_matrix_to_power(matrix, i))
 	return ans
 
-def Transponate(matrix):
+def transpose(matrix):
 	size = len(matrix)
-	ans = ZeroMatrix(size)
-	if CheckMatrix(matrix):
+	ans = fill_matrix_with_zero(size)
+	if check_matrix(matrix):
 		for i in range(size):
 			for j in range(size):
 				ans[i][j] = matrix[j][i]
 	return ans
 
-def And(matrix1, matrix2):
+def logical_and(matrix_1, matrix_2):
 	size = len(matrix)
-	ans = ZeroMatrix(size)
-	if CheckMatrix(matrix1) and CheckMatrix(matrix2) and len(matrix1) == len(matrix2):
+	ans = fill_matrix_with_zero(size)
+	if check_matrix(matrix_1) and check_matrix(matrix_2) and len(matrix_1) == len(matrix_2):
 		for i in range(size):
 			for j in range(size):
-				if matrix1[i][j] == matrix2[i][j] == 1:
+				if matrix_1[i][j] == matrix_2[i][j] == 1:
 					ans[i][j] = 1
 				else:
 					ans[i][j] = 0
 	return ans
 
-def Count(list):
+def count(list):
 	ans = 0
 	for arr in list:
 		for elem in arr:
 			ans += 1
 	return ans
 
-def GetAns(matrix, list):
-	if CheckMatrix(matrix):
+def extract_answer(matrix, list):
+	if check_matrix(matrix):
 		size = len(matrix)
-		curComp = []
-		toDelete = []
+		current_component = []
+		to_delete = []
 		for i in range(size):
 			if matrix[0][i] == 1:
-				curComp.append(i + 1 + Count(list))
-				toDelete.append(i)
-		toDelete.reverse()
-		for i in toDelete:
+				current_component.append(i + 1 + count(list))
+				to_delete.append(i)
+		to_delete.reverse()
+		for i in to_delete:
 			matrix.pop(i)
 			for arr in matrix:
 				arr.pop(i)
-		list.append(curComp)		
+		list.append(current_component)		
 		if len(matrix) > 0:
-			return GetAns(matrix, list)
+			return extract_answer(matrix, list)
 		else:
 			return list
 		
-def ConnectionComponents(matrix):
-	if CheckMatrix(matrix):
+def find_components(matrix):
+	if check_matrix(matrix):
 		print(LINE, "\nR:")
-		r = LineSumMatrix(matrix, size)
-		PrintMatrix(r)
+		r = sum_of_line_of_matrix(matrix, size)
+		print_matrix(r)
 
 		print(LINE, "\nR^T:")
-		rT = Transponate(r)
-		PrintMatrix(rT)
+		rT = transpose(r)
+		print_matrix(rT)
 
 		print(LINE, "\nR&R^T")
-		fin = And(r, rT)
-		PrintMatrix(fin)
+		fin = logical_and(r, rT)
+		print_matrix(fin)
 
 		print(LINE, "\nANSWER:")
-		print(GetAns(fin, []))
+		print(extract_answer(fin, []))
 
 		
 if __name__ == "__main__":
 	LINE = "-------------------------------------------" 
 
-	size = GetIntPositive("Введите размер матрицы: ")
-	matrix = ZeroMatrix(size)
+	size = get_positive_int("Введите размер матрицы: ")
+	matrix = fill_matrix_with_zero(size)
 
-	goOn = True
-	while goOn:
+	go_on = True
+	while go_on:
 		print(LINE)
-		PrintMatrix(matrix)
+		print_matrix(matrix)
 		print(LINE)
 		print("1 - Добавить связь")
 		print("2 - Найти компоненты связности")
 		print("3 - Выход")
-		ans = GetInt("Выберите действие [1-3]: ")
+		ans = get_int("Выберите действие [1-3]: ")
 		if ans == 1:
-			n1 = GetIntLowerThan("Введите номер вершины отправления: ", size)
-			n2 = GetIntLowerThan("Введите номер вершины прибытия: ", size)
-			matrix[n1 - 1][n2 - 1] = 1			
+			n_1 = get_positive_int_lower_than("Введите номер вершины отправления: ", size)
+			n_2 = get_positive_int_lower_than("Введите номер вершины прибытия: ", size)
+			matrix[n_1 - 1][n_2 - 1] = 1			
 		elif ans == 2:
-			ConnectionComponents(matrix)
-			goOn = False
+			find_components(matrix)
+			go_on = False
 		elif ans == 3:
-			goOn = False
+			go_on = False
 		else:
 			print("Введено неверное число")
