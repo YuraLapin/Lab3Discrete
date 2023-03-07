@@ -155,15 +155,15 @@ def find_components(matrix):
 		print_matrix(r)
 
 		print(LINE, "\nR^T:")
-		rT = transpose(r)
-		print_matrix(rT)
+		r_t = transpose(r)
+		print_matrix(r_t)
 
 		print(LINE, "\nR&R^T")
-		fin = logical_and(r, rT)
-		print_matrix(fin)
+		answer = logical_and(r, r_t)
+		print_matrix(answer)
 
 		print(LINE, "\nANSWER:")
-		print(extract_answer(fin, []))
+		print(extract_answer(answer, []))
 
 		
 if __name__ == "__main__":
