@@ -165,8 +165,8 @@ def find_components(matrix):
 		print(LINE, "\nANSWER:")
 		print(extract_answer(answer, []))
 
-		
-if __name__ == "__main__":
+
+def main():
 	LINE = "-------------------------------------------" 
 
 	size = get_positive_int("Введите размер матрицы: ")
@@ -192,3 +192,6 @@ if __name__ == "__main__":
 			go_on = False
 		else:
 			print("Введено неверное число")
+		
+if __name__ == "__main__":
+	main()	
